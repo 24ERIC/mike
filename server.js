@@ -11,21 +11,7 @@ app.use(cors());
 
 // Serve the image
 app.get('/api/image', (req, res) => {
-  res.sendFile(path.join(__dirname, 'images', 'a.png'));
-});
-
-// GPT schema and route
-const configuration = new Configuration({
-  apiKey: 'YOUR_OPENAI_API_KEY',
-});
-const openai = new OpenAI(configuration);
-
-app.get('/api/gpt', async (req, res) => {
-  const response = await openai.completions.create({
-    model: 'text-davinci-003',
-    prompt: 'Describe the image a.png',
-  });
-  res.json(response.choices[0].text);
+  res.sendFile(path.join(__dirname, 'images', '/client/src/a.png'));
 });
 
 // Serve React App
