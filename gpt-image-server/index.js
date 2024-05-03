@@ -8,19 +8,7 @@ const PORT = 5000;
 app.use(cors());
 
 app.get('/get-image', async (req, res) => {
-    try {
-        // Example GPT API Endpoint (Replace with real one)
-        const gptApiUrl = 'https://api.example.com/generate-image';
-        const response = await axios.post(gptApiUrl, {
-            prompt: 'Generate an image'
-        });
-        
-        // Assuming the API returns a base64 encoded image
-        res.json({ image: response.data.image });
-    } catch (error) {
-        console.error('Error fetching image from GPT:', error);
-        res.status(500).json({ error: 'Failed to fetch image' });
-    }
+    res.sendFile(path.join(__dirname, 'a.png'));
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
