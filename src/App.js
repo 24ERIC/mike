@@ -1,37 +1,34 @@
+// ImageGenerator.js
 import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  const [mermaidCode, setMermaidCode] = useState('flowchart TD; A-->B; B-->C; C-->D;');
-  const [chartImage, setChartImage] = useState('');
+const ImageGenerator = () => {
+  const [command, setCommand] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
-  const handleGenerateChart = async () => {
-    const response = await fetch('http://localhost:5001/generate-chart', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ mermaidCode }),
-    });
-    const imageBlob = await response.blob();
-    const imageUrl = URL.createObjectURL(imageBlob);
-    setChartImage(imageUrl);
+  const generateImage = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/generate-image?command=${encodeURIComponent(command)}`);
+      if (!response.ok) throw new Error('Error generating image');
+      
+      const blob = await response.blob();
+      setImageUrl(URL.createObjectURL(blob));
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <textarea 
-          value={mermaidCode} 
-          onChange={e => setMermaidCode(e.target.value)}
-        />
-        <button onClick={handleGenerateChart}>Generate Chart</button>
-        {chartImage && <img src={chartImage} alt="Generated Chart" />}
-      </header>
+    <div>
+      <input
+        type="text"
+        value={command}
+        onChange={(e) => setCommand(e.target.value)}
+        placeholder="Enter command"
+      />
+      <button onClick={generateImage}>Generate Image</button>
+      {imageUrl && <img src={imageUrl} alt="Generated" />}
     </div>
   );
-}
+};
 
-export default App;
+export default ImageGenerator;
