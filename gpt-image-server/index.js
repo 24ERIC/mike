@@ -1,26 +1,19 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
-const axios = require('axios');
 
 const app = express();
 const PORT = 5000;
 
+// Enable CORS for all routes
 app.use(cors());
 
-app.get('/get-image', async (req, res) => {
-    try {
-        // Example GPT API Endpoint (Replace with real one)
-        const gptApiUrl = 'https://mike-woad.vercel.app/generate-image';
-        const response = await axios.post(gptApiUrl, {
-            prompt: 'Generate an image'
-        });
-        
-        // Assuming the API returns a base64 encoded image
-        res.json({ image: response.data.image });
-    } catch (error) {
-        console.error('Error fetching image from GPT:', error);
-        res.status(500).json({ error: 'Failed to fetch image' });
-    }
+// Route to serve the image
+app.get('/get-image', (req, res) => {
+    // Using __dirname to refer to the current directory
+    const imagePath = path.join(__dirname, 'a.png');
+    res.sendFile(imagePath);
 });
 
+// Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
