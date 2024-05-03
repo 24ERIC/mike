@@ -6,7 +6,7 @@ const ImageComponent = () => {
 
     const fetchImage = async () => {
         try {
-            const response = await axios.get('https://mike-five.vercel.app/get-image');
+            const response = await axios.get('https://mike-woad.vercel.app//get-image');
             setImage(response.data.image);
         } catch (error) {
             console.error('Error fetching image:', error);

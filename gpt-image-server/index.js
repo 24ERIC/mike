@@ -10,7 +10,7 @@ app.use(cors());
 app.get('/get-image', async (req, res) => {
     try {
         // Example GPT API Endpoint (Replace with real one)
-        const gptApiUrl = 'https://api.example.com/generate-image';
+        const gptApiUrl = 'https://mike-woad.vercel.app/generate-image';
         const response = await axios.post(gptApiUrl, {
             prompt: 'Generate an image'
         });
