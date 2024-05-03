@@ -7,7 +7,7 @@ const ImageGenerator = () => {
 
   const generateImage = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/generate-image?command=${encodeURIComponent(command)}`);
+      const response = await fetch(`http://mike-delta.vercel.app/generate-image?command=${encodeURIComponent(command)}`);
       if (!response.ok) throw new Error('Error generating image');
       
       const blob = await response.blob();
